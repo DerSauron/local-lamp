@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+    apache2:
+        build:
+            context: ./apache2
+        ports:
+            - 80:80
+        volumes:
+            - ${HOME}/development/www:${HOME}/development/www
+        environment:
+            - HTTPD_DOC_ROOT=${HOME}/development/www
+
+    php-fpm:
+        build:
+            context: ./php-fpm
+        volumes:
+            - ${HOME}/development/www:${HOME}/development/www
+        environment:
+            - HTTPD_DOC_ROOT=${HOME}/development/www
+
+    memcached:
+        build:
+            context: ./memcached
+        ports:
+            - 11211:11211
+
+    mariadb:
+        build:
+            context: ./mariadb
+        ports:
+            - 3306:3306
+        volumes:
+            - ${HOME}/development/mysql-data:/var/lib/mysql
+        environment:
+            TZ: "Europe/Berlin"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "root"
+
+    postfix:
+        build:
+            context: ./postfix
+        ports:
+            - 25:25
+        volumes:
+            - "/etc/localtime:/etc/localtime:ro"
