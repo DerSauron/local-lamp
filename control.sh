@@ -20,6 +20,8 @@ if [ "$1" == "stop" ]; then
 elif [ "$1" == "restart" ]; then
     stop
     start
-else
+elif [ "$1" == "" -o "$1" == "start" ]; then
     start
+else
+    docker-compose "$@"
 fi
