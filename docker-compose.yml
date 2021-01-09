@@ -4,6 +4,9 @@ services:
     apache2:
         build:
             context: ./apache2
+            args:
+                - USER_ID
+                - GROUP_ID
         ports:
             - 80:80
         volumes:
@@ -14,6 +17,9 @@ services:
     php-fpm:
         build:
             context: ./php-fpm
+            args:
+                - USER_ID
+                - GROUP_ID
         volumes:
             - ${HOME}/development/www:${HOME}/development/www
         environment:
