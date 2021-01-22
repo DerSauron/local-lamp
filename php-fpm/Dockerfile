@@ -8,7 +8,7 @@ RUN groupadd -g ${GROUP_ID} service_user && useradd -M -u ${USER_ID} -g ${GROUP_
 RUN apt update && apt upgrade -y && apt autoremove --purge -y
 
 RUN mkdir -p /usr/local/bin
-ADD https://raw.githubusercontent.com/mlocati/docker-php-extension-installer/master/install-php-extensions /usr/local/bin/
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
     install-php-extensions mysqli bz2 calendar gettext pdo_mysql sysvmsg sysvsem sysvshm xdebug-2.9.8 opcache zip curl
