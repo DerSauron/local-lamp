@@ -10,7 +10,7 @@ cd "$DIR"
 
 start()
 {
-    docker-compose up --build -d "$@"
+    docker-compose up -d "$@"
 }
 
 stop()
@@ -19,12 +19,15 @@ stop()
 }
 
 if [ "$1" == "stop" ]; then
+    shift
     stop
 elif [ "$1" == "restart" ]; then
+    shift
     stop
-    start
+    start "$@"
 elif [ "$1" == "" -o "$1" == "start" ]; then
-    start
+    shift
+    start "$@"
 else
     docker-compose "$@"
 fi
